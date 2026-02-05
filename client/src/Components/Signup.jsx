@@ -20,19 +20,49 @@ export default function Signup({ onToggleMode }) {
     confirmPassword: '',
   });
 
-  const [showPassword, setShowPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const [loading, setLoading] = useState(false);
+
+ 
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
-    setTimeout(() => setLoading(false), 1500);
+    if(formData.name.length == 0) {
+      alert("Please Enter The User Name")
+      return;
+    };
+    if(formData.email.length ==0){
+      alert("Please Enter The Email");
+      return;
+    }
+    if(formData.location.length == 0){
+      alert("Please Enter The Location");
+      return;
+    }
+    if(formData.password.length == 0 || formData.confirmPassword.length == 0){
+      alert("Please Enter Password");
+      return;
+    }
+    if(formData.password != formData.confirmPassword){
+      alert("Incorrect Password");
+      return;
+    }
+    if(formData.password.length < 4){
+      alert("Password must be at least 4 characters");
+      return;
+    }
+    
   };
+  
 
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
+
+  let handleChange = (e)=>{
+    setFormData(
+      {
+        ...formData,
+        [e.target.name]:e.target.value
+      }
+    );
+     
+  }
 
   return (
     <div className="min-h-screen flex">
