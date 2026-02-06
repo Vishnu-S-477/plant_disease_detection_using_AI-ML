@@ -10,7 +10,9 @@ export default function Signup({ onToggleMode }) {
    }
 
 
-
+    const [showPassword,setShowPassword] = useState(false);
+    const [showConfirmPassword,setShowConfirmPassword] = useState(false);
+    const [loading,setLoading] = useState(false);
 
   const [formData, setFormData] = useState({
     name: '',
@@ -20,37 +22,56 @@ export default function Signup({ onToggleMode }) {
     confirmPassword: '',
   });
 
-
+  
  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     if(formData.name.length == 0) {
       alert("Please Enter The User Name")
+      setLoading(false);
       return;
     };
     if(formData.email.length ==0){
       alert("Please Enter The Email");
+      setLoading(false);
       return;
     }
     if(formData.location.length == 0){
       alert("Please Enter The Location");
+       setLoading(false);
       return;
     }
     if(formData.password.length == 0 || formData.confirmPassword.length == 0){
       alert("Please Enter Password");
+       setLoading(false);
       return;
     }
     if(formData.password != formData.confirmPassword){
       alert("Incorrect Password");
+       setLoading(false);
       return;
     }
     if(formData.password.length < 4){
       alert("Password must be at least 4 characters");
+       setLoading(false);
       return;
     }
+    createUser();
     
   };
+
+  const createUser =async ()=>{
+     const response = await fetch("http://localhost:5000/api/test",{
+      method:"POST",
+      headers:{"Content-Type":"application/json"},
+      body:JSON.stringify(formData)
+     });
+
+     const result = await response.json();
+      alert(result.message);
+  }
   
 
 
@@ -97,7 +118,7 @@ export default function Signup({ onToggleMode }) {
                     onChange={handleChange}
                     className="w-full pl-12 pr-4 py-3.5 border border-gray-300 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all outline-none"
                     placeholder="Enter your name"
-                    required
+                   
                   />
                 </div>
               </div>
@@ -115,7 +136,7 @@ export default function Signup({ onToggleMode }) {
                     onChange={handleChange}
                     className="w-full pl-12 pr-4 py-3.5 border border-gray-300 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all outline-none"
                     placeholder="farmer@example.com"
-                    required
+                   required
                   />
                 </div>
               </div>
@@ -133,7 +154,7 @@ export default function Signup({ onToggleMode }) {
                     onChange={handleChange}
                     className="w-full pl-12 pr-4 py-3.5 border border-gray-300 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all outline-none"
                     placeholder="City, State"
-                    required
+                   
                   />
                 </div>
               </div>
@@ -151,7 +172,7 @@ export default function Signup({ onToggleMode }) {
                     onChange={handleChange}
                     className="w-full pl-12 pr-12 py-3.5 border border-gray-300 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all outline-none"
                     placeholder="Create a password"
-                    required
+                   
                   />
                   <button
                     type="button"
@@ -176,7 +197,7 @@ export default function Signup({ onToggleMode }) {
                     onChange={handleChange}
                     className="w-full pl-12 pr-12 py-3.5 border border-gray-300 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all outline-none"
                     placeholder="Confirm your password"
-                    required
+                   
                   />
                   <button
                     type="button"
@@ -193,7 +214,7 @@ export default function Signup({ onToggleMode }) {
                   type="checkbox"
                   id="terms"
                   className="w-4 h-4 mt-1 text-green-600 border-gray-300 rounded focus:ring-green-500"
-                  required
+                 
                 />
                 <label htmlFor="terms" className="text-sm text-gray-600">
                   I agree to the{' '}
