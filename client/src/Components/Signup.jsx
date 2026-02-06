@@ -9,6 +9,10 @@ export default function Signup({ onToggleMode }) {
     navigate("/Login");
    }
 
+   const mainRoute = ()=>{
+    navigate("/Detect");
+   }
+
 
     const [showPassword,setShowPassword] = useState(false);
     const [showConfirmPassword,setShowConfirmPassword] = useState(false);
@@ -69,8 +73,13 @@ export default function Signup({ onToggleMode }) {
       body:JSON.stringify(formData)
      });
 
-     const result = await response.json();
-      alert(result.message);
+     const result = await response.text();
+     if(result == 'already_exist'){
+      alert("Email Already Exist");
+     }
+     else{
+     mainRoute();
+     }
   }
   
 
@@ -230,7 +239,7 @@ export default function Signup({ onToggleMode }) {
 
               <button
                 type="submit"
-                disabled={loading}
+                // disabled={loading}
                 className="w-full bg-gradient-to-r from-emerald-600 to-green-600 text-white py-3.5 rounded-xl font-semibold hover:from-emerald-700 hover:to-green-700 transform hover:scale-[1.02] transition-all shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
               >
                 {loading ? 'Creating Account...' : 'Create Account'}

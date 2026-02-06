@@ -9,4 +9,4 @@
        
     });
 
-    module.exports = mongoose.model("User",userSchema);
+    module.exports =mongoose.model.User|| mongoose.model("User",userSchema);

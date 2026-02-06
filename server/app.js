@@ -1,6 +1,6 @@
 const express = require("express");
 const cors = require("cors");
-const userData = require("./Store_Data/store_user_data")
+const Signup = require("./controllers/Signup")
 const app = express();
 app.use(cors());
 app.use(express.json());
@@ -10,8 +10,8 @@ app.get("/",(req,res)=>{
 });
 
 app.post("/api/test",async (req,res)=>{
-   await  userData(req);
-   res.send("Working");
+ let response =   await Signup(req);
+   res.send(response);
 });
 
 
