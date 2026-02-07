@@ -1,8 +1,24 @@
 import { Camera, Upload } from 'lucide-react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
-function Detect() {
-  const [score, setScore] = useState(9);
+import SessionVerification from '../Controller/SessionVerification';
+import { useNavigate } from 'react-router-dom';
+
+
+ function Detect() {
+  const navigate = useNavigate();
+    useEffect(()=>{
+     const sessionVerify = async ()=>{
+      const result = await SessionVerification();
+       if(! result  ){
+        alert(result);
+      alert("Session Expired");
+      navigate("/");
+    }
+     }
+     sessionVerify();
+    },[]);
+  const [score, setScore] = useState(1);
 
   const getScoreColor = (score) => {
     if (score >= 80) return 'text-green-500';

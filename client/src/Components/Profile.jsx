@@ -1,4 +1,7 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
+import SessionVerification from '../Controller/SessionVerification';
 import { Sprout, Phone, Mail, MapPin, Edit3, LogOut, Camera } from 'lucide-react';
 
 export default function Profile({ onLogout, onEdit }) {
@@ -12,6 +15,19 @@ export default function Profile({ onLogout, onEdit }) {
     farmSize: '45 acres',
     crops: 'Wheat, Rice, Corn',
   });
+
+   const navigate = useNavigate();
+    useEffect(()=>{
+     const sessionVerify = async ()=>{
+      const result = await SessionVerification();
+       if(! result  ){
+        alert(result);
+      alert("Session Expired");
+      navigate("/");
+    }
+     }
+     sessionVerify();
+    },[]);
 
   const handleImageUpload = (e) => {
     const file = e.target.files[0];

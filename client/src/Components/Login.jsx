@@ -27,6 +27,7 @@ import { useNavigate } from 'react-router-dom';
     const response =await fetch("http://localhost:5000/api/Login",{
       method:"POST",
       headers:{"Content-Type":"application/json"},
+        credentials:"include", 
       body:JSON.stringify({email:email,password:password})
     });
  

@@ -16,6 +16,7 @@ console.log(user);
 async function isValidUser(request){
  const hashedPassword = (await userModel.findOne({email:request.body.email}).select("password")).password;
  if(await bcrypt.compare(request.body.password,hashedPassword)){
+   request.session.email = request.body.email; 
     return "valid_user";
  }
  else{

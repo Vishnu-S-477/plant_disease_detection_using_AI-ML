@@ -1,7 +1,22 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
+import SessionVerification from '../Controller/SessionVerification';
 import { Calendar, TrendingUp, Trash2 } from 'lucide-react';
 
 function History() {
+   const navigate = useNavigate();
+    useEffect(()=>{
+     const sessionVerify = async ()=>{
+      const result = await SessionVerification();
+       if(! result  ){
+        alert(result);
+      alert("Session Expired");
+      navigate("/");
+    }
+     }
+     sessionVerify();
+    },[]);
   const initialRecords = [
     {
       id: 1,
