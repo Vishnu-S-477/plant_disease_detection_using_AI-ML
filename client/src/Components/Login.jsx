@@ -11,12 +11,43 @@ import { useNavigate } from 'react-router-dom';
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  const HandleSubmit = ()=>{
-    navigate("/Detect");
+  const HandleSubmit = async (e)=>{
+   e.preventDefault();
+
+   if(email.length == 0){
+    alert("Please Enter The Email Id");
+    return;
+   }
+   if(password.length == 0){
+    alert("Please Enter The Password");
+    return;
+   }
+
+
+    const response =await fetch("http://localhost:5000/api/Login",{
+      method:"POST",
+      headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({email:email,password:password})
+    });
+ 
+    const serverResponse = await response.text();
+    
+    if(serverResponse == "valid_user"){
+      navigate("/Detect");
+    }
+    else if(serverResponse == "wrong_password"){
+     alert("Incorrect Password");
+    }
+    else{
+      alert("Email Not Exist")
+    }
+    
+   
   }
   const signUpRoute = ()=>{
     navigate("/Signup");
   }
+
   return (
     <div className="min-h-screen flex">
       <div className="hidden lg:flex lg:w-1/2 bg-gradient-to-br from-emerald-600 via-green-600 to-lime-600 relative overflow-hidden">
