@@ -44,7 +44,79 @@ import { useNavigate } from 'react-router-dom';
   };
 
   return (
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 flex flex-col items-center py-12 px-4 mt-[60px]">
+
+
+
+ <header className="fixed top-0 left-0 h-[70px] w-screen bg-green-600 flex items-center">
+      
+      {/* Left section */}
+      <div className="flex-1 flex items-center justify-start pl-[10px] text-white">
+        <h1 className="text-[30px] font-bold font-serif">
+          AgriConnect
+        </h1>
+      </div>
+
+      {/* Center section */}
+      <div className="flex-1 flex items-center justify-center text-white">
+        <h1 className="text-[30px] font-bold font-serif">
+          Disease Detect
+        </h1>
+      </div>
+
+      {/* Right section */}
+      <div className="flex-1 flex items-center justify-end pr-[10px]">
+        <img
+          src="/hamburger.png"
+          alt="menu"
+          className="h-[30px] w-[55px]"
+        />
+      </div>
+
+    </header>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
       <div className="flex gap-6 mb-12">
         <button
           onClick={handleCamera}
