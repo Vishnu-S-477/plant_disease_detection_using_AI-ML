@@ -19,6 +19,7 @@ import { useNavigate } from 'react-router-dom';
      sessionVerify();
     },[]);
   const [score, setScore] = useState(1);
+  const [menuBar,setMenuBar] = useState(false);
 
   const getScoreColor = (score) => {
     if (score >= 80) return 'text-green-500';
@@ -72,7 +73,9 @@ import { useNavigate } from 'react-router-dom';
 
 
 
- <header className="fixed top-0 left-0 h-[70px] w-screen bg-green-600 flex items-center">
+ <header className="fixed top-0 left-0 h-[70px] w-screen bg-green-600 flex items-center z-20">
+
+
       
       {/* Left section */}
       <div className="flex-1 flex items-center justify-start pl-[10px] text-white">
@@ -90,17 +93,71 @@ import { useNavigate } from 'react-router-dom';
 
       {/* Right section */}
       <div className="flex-1 flex items-center justify-end pr-[10px]">
+        <button onClick={()=>{setMenuBar(!menuBar)}}>
         <img
           src="/hamburger.png"
           alt="menu"
           className="h-[30px] w-[55px]"
         />
+        </button>
       </div>
 
     </header>
 
 
 
+
+   {menuBar && <section
+      className="
+        fixed top-[75px] right-[50px]
+        h-[150px] w-[200px]
+        border-2 border-lime-500
+        rounded-[5px]
+        flex flex-col items-center justify-around bg-white
+      "
+    >
+      <div onClick={()=>{setMenuBar(!menuBar)}}
+        className="
+          h-full w-full
+          border border-lime-400
+          flex items-center justify-center
+          cursor-pointer
+          text-green-600 bg-white
+          transition-all duration-500 ease-in-out
+          hover:bg-green-600 hover:text-white 
+        "
+      >
+        Detect Disease
+      </div>
+
+      <div onClick={()=>{setMenuBar(!menuBar);navigate("/History");}}
+        className="
+          h-full w-full
+          border border-lime-400
+          flex items-center justify-center
+          cursor-pointer
+          text-green-600 bg-white
+          transition-all duration-500 ease-in-out
+          hover:bg-green-600 hover:text-white
+        "
+      >
+        History
+      </div>
+
+      <div onClick={()=>{setMenuBar(!menuBar);navigate("/Profile")}}
+        className="
+          h-full w-full
+          border border-lime-400
+          flex items-center justify-center
+          cursor-pointer
+          text-green-600 bg-white
+          transition-all duration-500 ease-in-out
+          hover:bg-green-600 hover:text-white
+        "
+      >
+        Profile
+      </div>
+    </section>}
 
 
 
