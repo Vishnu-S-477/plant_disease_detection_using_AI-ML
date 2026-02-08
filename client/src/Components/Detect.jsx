@@ -44,7 +44,7 @@ import { useNavigate } from 'react-router-dom';
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 flex flex-col items-center py-12 px-4">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 flex flex-col items-center py-12 px-4 mt-[60px]">
       <div className="flex gap-6 mb-12">
         <button
           onClick={handleCamera}
