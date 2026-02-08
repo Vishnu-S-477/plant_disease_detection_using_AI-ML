@@ -5,6 +5,7 @@ import SessionVerification from '../Controller/SessionVerification';
 import { Calendar, TrendingUp, Trash2 } from 'lucide-react';
 
 function History() {
+  const [menuBar,setMenuBar] = useState(true);
    const navigate = useNavigate();
     useEffect(()=>{
      const sessionVerify = async ()=>{
@@ -80,6 +81,81 @@ function History() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-slate-100">
+
+
+
+     <img onClick={()=>{setMenuBar(!menuBar)}}
+  src="/black-hamburger.png"
+  class="
+    h-[30px] w-[40px]
+    fixed
+    top-[35px] right-[30px]
+    z-20  cursor-pointer
+  "
+/>
+
+
+  {menuBar && <section
+      className="
+        fixed top-[75px] right-[50px]
+        h-[150px] w-[200px]
+        border-2 border-lime-500
+        rounded-[5px]
+        flex flex-col items-center justify-around bg-white z-30
+      "
+    >
+      <div onClick={()=>{setMenuBar(!menuBar);navigate("/Detect")}}
+        className="
+          h-full w-full
+          border border-lime-400
+          flex items-center justify-center
+          cursor-pointer
+          text-green-600 bg-white
+          transition-all duration-500 ease-in-out
+          hover:bg-green-600 hover:text-white 
+        "
+      >
+        Detect Disease
+      </div>
+
+      <div onClick={()=>{setMenuBar(!menuBar);navigate("/History");}}
+        className="
+          h-full w-full
+          border border-lime-400
+          flex items-center justify-center
+          cursor-pointer
+          text-green-600 bg-white
+          transition-all duration-500 ease-in-out
+          hover:bg-green-600 hover:text-white
+        "
+      >
+        History
+      </div>
+
+      <div onClick={()=>{setMenuBar(!menuBar);navigate("/Profile")}}
+        className="
+          h-full w-full
+          border border-lime-400
+          flex items-center justify-center
+          cursor-pointer
+          text-green-600 bg-white
+          transition-all duration-500 ease-in-out
+          hover:bg-green-600 hover:text-white
+        "
+      >
+        Profile
+      </div>
+    </section>}
+
+
+
+
+
+
+
+
+
+
       <div className="container mx-auto px-4 py-8">
         <div className="mb-10 text-center">
           <h1 className="text-4xl font-bold text-slate-800 mb-2">
