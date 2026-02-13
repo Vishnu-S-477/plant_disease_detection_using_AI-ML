@@ -5,7 +5,7 @@ import SessionVerification from '../Controller/SessionVerification';
 import { Calendar, TrendingUp, Trash2 } from 'lucide-react';
 
 function History() {
-  const [menuBar,setMenuBar] = useState(true);
+  const [menuBar,setMenuBar] = useState(false);
    const navigate = useNavigate();
     useEffect(()=>{
      const sessionVerify = async ()=>{
