@@ -18,50 +18,23 @@ function History() {
      }
      sessionVerify();
     },[]);
-  const initialRecords = [
-    {
-      id: 1,
-      diseaseName: "Influenza Type A",
-      recoveryPercentage: 95,
-      date: "2024-01-15",
-      imageUrl: "https://images.pexels.com/photos/3825517/pexels-photo-3825517.jpeg?auto=compress&cs=tinysrgb&w=800",
-      description: "Seasonal flu with mild symptoms"
-    },
-    {
-      id: 2,
-      diseaseName: "Bronchitis",
-      recoveryPercentage: 88,
-      date: "2024-03-22",
-      imageUrl: "https://images.pexels.com/photos/4386467/pexels-photo-4386467.jpeg?auto=compress&cs=tinysrgb&w=800",
-      description: "Acute respiratory condition"
-    },
-    {
-      id: 3,
-      diseaseName: "Migraine",
-      recoveryPercentage: 92,
-      date: "2024-05-10",
-      imageUrl: "https://images.pexels.com/photos/3758117/pexels-photo-3758117.jpeg?auto=compress&cs=tinysrgb&w=800",
-      description: "Chronic headache condition"
-    },
-    {
-      id: 4,
-      diseaseName: "Gastroenteritis",
-      recoveryPercentage: 100,
-      date: "2024-07-08",
-      imageUrl: "https://images.pexels.com/photos/4386464/pexels-photo-4386464.jpeg?auto=compress&cs=tinysrgb&w=800",
-      description: "Stomach infection fully recovered"
-    },
-    {
-      id: 5,
-      diseaseName: "Allergic Rhinitis",
-      recoveryPercentage: 78,
-      date: "2024-09-18",
-      imageUrl: "https://images.pexels.com/photos/4167540/pexels-photo-4167540.jpeg?auto=compress&cs=tinysrgb&w=800",
-      description: "Seasonal allergy management"
-    }
-  ];
+ 
 
-  const [historyRecords, setHistoryRecords] = useState(initialRecords);
+  const [historyRecords, setHistoryRecords] = useState([]);
+
+  useEffect(()=>{
+    const fetchAPI = async ()=>{
+      const request = await fetch("http://localhost:5000/api/HistoryFetch",{
+    method:'POST',
+    headers:{"Content-Type":"application/json"},
+      credentials: "include",
+    body:JSON.stringify({request:"History"})
+  });
+  const serverResponse =await request.json();
+  setHistoryRecords(serverResponse);
+    };
+    fetchAPI();
+  },[]);
 
   const getRecoveryColor = (percentage) => {
     if (percentage >= 90) return "text-green-600";
@@ -116,7 +89,7 @@ function History() {
         "
       >
         Detect Disease
-      </div>
+      </div>  
 
       <div onClick={()=>{setMenuBar(!menuBar);navigate("/History");}}
         className="
@@ -171,16 +144,16 @@ function History() {
             <div className="text-center py-12">
               <p className="text-slate-600 text-lg">No medical history records found.</p>
             </div>
-          ) : (
+          ) : ( 
             historyRecords.map((record) => (
               <div
-                key={record.id}
+                key={record._id}
                 className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1"
               >
                 <div className="flex flex-col md:flex-row">
                   <div className="md:w-1/2 h-64 md:h-64">
                     <img
-                      src={record.imageUrl}
+                      src={`data:image/${record.extension.replace(".", "")};base64,${record.picture}`} 
                       alt={record.diseaseName}
                       className="w-full h-full object-cover"
                     />

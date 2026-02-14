@@ -39,6 +39,7 @@ import { useNavigate } from 'react-router-dom';
     const uploafFile = async ()=>{
       const response = await fetch("http://localhost:5000/api/imageUpload",{
         method:"POST",
+          credentials: "include",
         body:formData
       });
       const serverResponse = await response.json();

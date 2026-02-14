@@ -5,7 +5,7 @@ const imageUpload =async  (req,extension)=>{
     const base64 = buffer.toString("base64");
     const history = new historyModel({
           emailId:req.session.email,
-    pictue:base64,
+    picture:base64,
     date: new Date(),
     diseaseName:"disease",
     extension:extension
