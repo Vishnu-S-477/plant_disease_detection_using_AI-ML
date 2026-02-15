@@ -42,7 +42,14 @@ import { useNavigate } from 'react-router-dom';
           credentials: "include",
         body:formData
       });
-      const serverResponse = await response.json();
+      const serverResponse = await response.text();
+      if(serverResponse == "true"){
+        alert("Image Uploaded Successfully");
+      }
+      else{
+        alert(`Error In Image Upload
+          Please Try Again Later`);
+      }
     }
     uploafFile();
    }

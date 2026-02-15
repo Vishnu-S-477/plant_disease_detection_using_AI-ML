@@ -48,8 +48,23 @@ function History() {
     return "bg-amber-100";
   };
 
-  const deleteRecord = (id) => {
-    setHistoryRecords(historyRecords.filter(record => record.id !== id));
+  const deleteRecord = async (id) => {
+    alert(`id : ${id}`);
+    const response =await fetch("http://localhost:5000/api/DeleteHistory",{
+      method:"POST",
+      headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({delete_id:id})
+    });
+    const serverResponse = await response.text();
+    if(serverResponse == "User deleted Successfully"){
+       setHistoryRecords(historyRecords.filter(record => record._id !== id));
+    }
+    else{
+      alert(`Something went Wring
+         Try Again Later`);
+    }
+
+   
   };
 
   return (
@@ -132,7 +147,7 @@ function History() {
       <div className="container mx-auto px-4 py-8">
         <div className="mb-10 text-center">
           <h1 className="text-4xl font-bold text-slate-800 mb-2">
-            Medical History
+            Disease History
           </h1>
           <p className="text-slate-600 text-base">
             Your complete health recovery timeline
@@ -216,7 +231,7 @@ function History() {
 
                     <div className="pt-4 flex justify-end">
                       <button
-                        onClick={() => deleteRecord(record.id)}
+                        onClick={() => deleteRecord(record._id)}
                         className="flex items-center space-x-2 bg-red-50 hover:bg-red-100 text-red-600 px-3 py-1.5 rounded-lg transition-all duration-200 hover:scale-105 text-sm"
                       >
                         <Trash2 className="w-5 h-5" />

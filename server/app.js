@@ -6,6 +6,7 @@ const Login = require("./controllers/Login")
 const imageUpload = require("./ImageUpload/imageUpload");
 const sessionVerification = require("./controllers/SessionVerification");
 const History = require("./controllers/HistoryFetch");
+const DeleteHistory = require("./controllers/DeleteHistory");
 const path = require("path");
 const app = express();
 app.use(cors({
@@ -55,14 +56,21 @@ app.post("/api/SessionVerification",(req,res)=>{
 
 app.post("/api/imageUpload",upload.single("image"), async (req, res) => {
    const extension = path.extname(req.file.originalname).toLowerCase();
-   console.log("Testing :  "+ req.session.email);
+   
     const result = await imageUpload(req,extension);
+    res.send(result);
   }
 );
 
-app.post("/api/HistoryFetch",(req,res)=>{
-  const Historys = History(req);
+app.post("/api/HistoryFetch",async (req,res)=>{
+  const Historys = await History(req);
+  console.log(Historys);
   res.json(Historys);
+});
+
+app.post("/api/DeleteHistory",async(req,res)=>{
+ const response = await DeleteHistory(req);
+ res.send(response);
 });
 
 module.exports = app;

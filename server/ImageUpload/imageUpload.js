@@ -11,7 +11,13 @@ const imageUpload =async  (req,extension)=>{
     extension:extension
     });
 
-    await history.save();
+    const imageUploadResponse  =  await history.save();
+    if(imageUploadResponse){
+      return "true";
+    }
+    else{
+      return "false";
+    }
  
 }
 

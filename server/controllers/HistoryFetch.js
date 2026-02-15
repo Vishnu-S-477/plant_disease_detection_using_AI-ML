@@ -3,8 +3,9 @@ const HistoryModel = require("../models/History");
 async function HistoryFetch(req){
     const email = req.session.email;
     try{
+        console.log("Control Came");
    const historyData = await HistoryModel
-      .findOne({ emailId: email })
+      .find({ emailId: email })
       .sort({ createdAt: -1 });
      return historyData;
     }
