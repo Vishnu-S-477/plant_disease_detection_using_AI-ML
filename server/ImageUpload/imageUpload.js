@@ -13,6 +13,13 @@ const imageUpload =async  (req,extension)=>{
 
     const imageUploadResponse  =  await history.save();
     if(imageUploadResponse){
+       fs.unlink(req.file.path, (err) => {
+        if (err) {
+          console.log("File delete error:", err);
+        } else {
+          console.log("Temporary uploaded file deleted");
+        }
+      });
       return "true";
     }
     else{
