@@ -7,6 +7,8 @@ const imageUpload = require("./ImageUpload/imageUpload");
 const sessionVerification = require("./controllers/SessionVerification");
 const History = require("./controllers/HistoryFetch");
 const DeleteHistory = require("./controllers/DeleteHistory");
+const profileViewer = require("./controllers/ProfileViewer");
+const ProfileModifier  = require("./controllers/ProfileModifier");
 const path = require("path");
 const app = express();
 app.use(cors({
@@ -67,6 +69,22 @@ app.post("/api/HistoryFetch",async (req,res)=>{
   console.log(Historys);
   res.json(Historys);
 });
+
+app.post("/api/ProfileViewer",async (req,res)=>{
+  const request = await profileViewer(req);
+  
+  res.json(request);
+});
+
+
+app.post("/api/ProfileModifier",upload.single("image"), async (req, res) => {
+   const extension = (req.body.isImage == 'true')? path.extname(req.file.originalname).toLowerCase():"";
+   
+    const result = await ProfileModifier(req,extension);
+    res.send(result);
+    //  
+  }
+);
 
 app.post("/api/DeleteHistory",async(req,res)=>{
  const response = await DeleteHistory(req);

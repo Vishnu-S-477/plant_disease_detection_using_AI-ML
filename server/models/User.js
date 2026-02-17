@@ -6,6 +6,7 @@
         password:String,
         location:String,
         profilePic:String,
+        extension:String
        
     });
 
